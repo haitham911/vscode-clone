@@ -1,0 +1,153 @@
+
+# VSCode Clone
+
+A simple clone of VSCode built with Electron and React.
+
+## Table of Contents
+
+- [Introduction](#introduction)
+- [Features](#features)
+- [Installation](#installation)
+- [Running the Application](#running-the-application)
+- [Building for Different Platforms](#building-for-different-platforms)
+- [Project Structure](#project-structure)
+- [Contributing](#contributing)
+- [License](#license)
+
+## Introduction
+
+VSCode Clone is a desktop application that mimics some features of Visual Studio Code. It is built using Electron, React, and other supporting libraries. This project demonstrates how to build a cross-platform desktop application using modern web technologies.
+
+## Features
+
+- File Explorer: Select and view folders from your disk.
+- Text Editor: View and edit text files.
+- Customizable workspace.
+- Cross-platform support (Windows, macOS, Linux).
+
+## Installation
+
+### Prerequisites
+
+- [Node.js](https://nodejs.org/) (version 14 or later)
+- [npm](https://www.npmjs.com/)
+- [Electron](https://www.electronjs.org/)
+
+### Clone the Repository
+
+```bash
+git clone https://github.com/yourusername/vscode-clone.git
+cd vscode-clone
+```
+
+### Install Dependencies
+
+```bash
+npm install
+```
+
+## Running the Application
+
+To start the application in development mode:
+
+```bash
+npm run start
+```
+
+This will build the project using Webpack and start the Electron application.
+
+## Building for Different Platforms
+
+### Building for Windows
+
+To build the application for Windows:
+
+```bash
+npm run dist -- --win
+```
+
+### Building for macOS
+
+To build the application for macOS, you need to use a macOS environment. If you are using a CI/CD service like GitHub Actions, you can configure it to build for macOS.
+
+#### GitHub Actions Example
+
+Create a workflow file in `.github/workflows/build.yml`:
+
+```yaml
+name: Build Electron App
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build app
+        run: npm run build
+
+      - name: Package app
+        run: npx electron-builder --mac
+        env:
+          CSC_LINK: ${{ secrets.CSC_LINK }}
+          CSC_KEY_PASSWORD: ${{ secrets.CSC_KEY_PASSWORD }}
+```
+
+### Building for Linux
+
+To build the application for Linux:
+
+```bash
+npm run dist -- --linux
+```
+
+## Project Structure
+
+```
+vscode-clone/
+├── public/
+│   ├── index.html
+│   └── styles.css
+├── src/
+│   ├── main/
+│   │   ├── main.js
+│   │   ├── preload.js
+│   │   └── storage.js
+│   └── renderer/
+│       ├── App.js
+│       ├── CardView.js
+│       └── Explorer.js
+├── package.json
+└── webpack.config.js
+```
+
+## Contributing
+
+Contributions are welcome! Please fork this repository and submit pull requests.
+
+### Steps to Contribute
+
+1. Fork the repository
+2. Create a new branch (`git checkout -b feature-branch`)
+3. Make your changes
+4. Commit your changes (`git commit -am 'Add new feature'`)
+5. Push to the branch (`git push origin feature-branch`)
+6. Create a new Pull Request
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
